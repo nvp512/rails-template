@@ -75,6 +75,9 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "login_#{Rails.env}"
 
+  config.cache_store = :redis_store, ENV['REDIS_URL']
+  config.session_store :redis_store, :key => '_app_session', :expire_after => ENV['SESSION_EXPIRE'].to_i.minutes
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
