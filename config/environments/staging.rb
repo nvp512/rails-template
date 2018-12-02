@@ -57,12 +57,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV["URL_HOST"] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      enable_starttls_auto: true,
-      address: "email-smtp.us-west-2.amazonaws.com",
-      port: 587,
-      authentication: :login,
-      user_name: ENV['SES_USER'],
-      password: ENV['SES_PASS']
+    enable_starttls_auto: true,
+    address: "email-smtp.us-west-2.amazonaws.com",
+    port: 587,
+    authentication: :login,
+    user_name: ENV['SES_USER'],
+    password: ENV['SES_PASS']
   }
 
   # Prepend all log lines with the following tags.
@@ -70,9 +70,6 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-
-  config.cache_store = :redis_store, ENV['REDIS_URL']
-  config.session_store :redis_store, :key => '_app_session', :expire_after => ENV['SESSION_EXPIRE'].to_i.minutes
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque

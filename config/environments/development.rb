@@ -16,16 +16,17 @@ Rails.application.configure do
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
-
-    config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
   end
+
+
+  config.cache_store = :redis_store, ENV['REDIS_URL']
+  config.session_store :redis_store, :key => '_app_session', :expire_after => ENV['SESSION_EXPIRE'].to_i.minutes
+
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
@@ -48,6 +49,21 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  #Emails
+  config.action_mailer.default_url_options = { :host => ENV["URL_HOST"] }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      enable_starttls_auto: true,
+      address: "smtp.gmail.com" ,
+      port: 587,
+      domain: "gmail.com" ,
+      authentication: :login,
+      user_name: ENV['SES_USER'],
+      password: ENV['SES_PASS']
+  }
+
+  config.active_record.default_timezone = :local
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true

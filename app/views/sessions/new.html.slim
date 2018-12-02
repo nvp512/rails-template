@@ -1,0 +1,10 @@
+= form_for @identity, :url => '/auth/identity/callback', :method => :post do |f|
+  .form-group
+    label Email address
+    = f.text_field :email, name: 'auth_key', class: 'form-control', required: true, type: "email"
+  .form-group
+    label Password
+    = f.password_field :password, name: 'password', class: 'form-control', required: true, type: "password"
+  button.btn.btn-primary type="submit"  Login
+
+= link_to t('.sign_up'), signup_path, class: 'btn btn-sign-up wow shake', 'data-wow-delay' => '2s'

@@ -31,3 +31,17 @@
 
 en:
   hello: "Hello world"
+  identities:
+    new:
+      password_dont_match: "password_dont_match"
+      email_has_been_taken: "email_has_been_taken"
+      email_not_blank: "email_not_blank"
+      password_dont_match: "password_dont_match"
+  member_mailer:
+    login_notification:
+      subject: LOGIN NOTIFY SUBJECT
+      content: |
+        contentncontentncontentncontentncontentncontentncontentn
+        contentn
+        contentncontentn
+
